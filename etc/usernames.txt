@@ -1,0 +1,6 @@
+mario
+luigi
+peach
+toad
+bowseryoshi
+yoshi
