@@ -1,11 +1,15 @@
 #!/usr/bin/python3
 
+# imports
 import random
+import os
+import time
 
 # character and monster properties
+# TODO incorporate monster properties inside dictionary or put monsters in own dictionary
 characterHP = 50
 enemyHP = 50
-listOfAttacks = ['punch', 'kick']
+listOfAttacks = ['punch', 'kick', 'elbow', 'knee']
 
 #an inventory, which is initially empty
 inventory = []
@@ -43,7 +47,13 @@ def showInstructions():
     fight [monster]
     ''')
     print("") # just a blank line
-    print("Welcome to Wraeclast, Exile. You find yourself washed ashore on the coast, battered and broken from the treacherous sea. But don't be fooled by the tranquil surroundings, for this land is cursed with dark magic and home to unspeakable horrors.")
+    print('''
+    Welcome to Wraeclast, Exile. 
+        You find yourself washed ashore on the coast, 
+        battered and broken from the treacherous sea. 
+        But don't be fooled by the tranquil surroundings, 
+        for this land is cursed with dark magic and home to unspeakable horrors.
+        ''')
     
 def showStatus():
     #print the player's current status
@@ -66,13 +76,26 @@ def showStatus():
         print(f"{rooms[currentRoom]['monster']}'s HP : {enemyHP}")
     print("---------------------------\n")
 
+# TODO make functions fight(), item()
+
+# TODO Implement def main() starting here
+
 #start the player in the Wreckage
+os.system('clear')
 currentRoom = 'Wreckage'
 
 showInstructions()
 
+# implement some user input here before proceeding
+input("Press any key to continue...")
+
 #loop forever
 while True:
+    # os.system('clear')
+
+    # pause for effect
+    time.sleep(0.5)
+
     showStatus()
 
     #get the player's next 'move'
@@ -116,13 +139,16 @@ while True:
     #if they type 'use' first
     if move[0] == 'use':
         if move[1] in inventory and move[1] == 'potion':
+            # what happens if you have full health
             if characterHP == 50:
                 print("You just wasted a potion!")
                 inventory.remove('potion')
+            # what happens when the potion heals more than your max HP
             elif characterHP >= 26:
                 print("You regained some HP!")
                 characterHP = 50
                 inventory.remove('potion')
+            # normal HP
             else:
                 print("You regained some HP!")
                 characterHP += 25
@@ -179,3 +205,5 @@ while True:
         print("Not today Exile!")
         print("Game Over")
         break
+
+# TODO if __name__ == '__main__'
