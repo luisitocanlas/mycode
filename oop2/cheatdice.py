@@ -32,3 +32,21 @@ class Cheat_Loaded_Dice(Player): # inheritance of Player
             if self.dice[i] < 6:
                 self.dice[i] += 1
             i += 1
+
+# user will never roll anything lower than a 3
+class Cheat_High_Roller(Player):
+    def cheat(self):
+        self.dice = []
+        for i in range(3):
+            self.dice.append(randint(3,6))
+
+# user will roll a 6 about 50% of the time
+class Cheat_Fifty(Player):
+    def cheat(self):
+        self.dice = []
+        for i in range(3):
+            if randint(0,1) == 0:
+                roll = 6
+            else:
+                roll = randint(1,6)
+            self.dice.append(roll)
