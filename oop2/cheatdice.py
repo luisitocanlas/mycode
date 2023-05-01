@@ -50,3 +50,23 @@ class Cheat_Fifty(Player):
             else:
                 roll = randint(1,6)
             self.dice.append(roll)
+
+# user will reroll if dice sum is less than 9
+class Cheat_Mulligan(Player):
+    def cheat(self):
+        if sum(self.dice) < 9:
+            self.dice = []
+            for i in range(3):
+                self.dice.append(randint(1,6))
+
+# user will add a die roll
+class Cheat_Add(Player):
+    def cheat(self):
+        self.dice.append(randint(1,6))
+
+# User will make the opponents roll poorly
+class Cheat_Sabotage(Player):
+    def cheat(self, other):
+        other.dice = []
+        for i in range(3):
+            other.dice.append(randint(1,3))
