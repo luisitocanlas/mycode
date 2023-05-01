@@ -4,6 +4,7 @@
 # python standard library
 import uuid
 
+# Unique User ID
 # generate a UUID based on the host id, sequence number, and current time
 # simulating a ticketed job number
 ticket = uuid.uuid1()
