@@ -5,8 +5,16 @@ import random
 import os
 import time
 
+# TODO for future implementation, complete classes
+class Exile:
+    def __init__(self):
+        self.HP = 50
+
+class Monster:
+    def __init__(self):
+        self.HP = 50
+
 # character and monster properties
-# TODO incorporate monster properties inside dictionary or put monsters in own dictionary
 characterHP = 50
 enemyHP = 50
 listOfAttacks = ['punch', 'kick', 'elbow', 'knee']
@@ -34,6 +42,7 @@ rooms = {
                     'back'   : 'Beach'
                     }
         }
+
 
 def showInstructions():
     #print a main menu and the commands
@@ -77,8 +86,6 @@ def showStatus():
     print("---------------------------\n")
 
 # TODO make functions fight(), item()
-
-# TODO Implement def main() starting here
 
 #start the player in the Wreckage
 os.system('clear')
@@ -205,5 +212,4 @@ while True:
         print("Not today Exile!")
         print("Game Over")
         break
-
-# TODO if __name__ == '__main__'
+    
