@@ -4,10 +4,6 @@
 import requests
 from flask import Flask, redirect, url_for, request, render_template
 
-# URLs
-# ffChars = 'https://www.moogleapi.com/api/v1/characters'
-# chars = requests.get(ffChars).json()
-
 # represents the website
 app = Flask(__name__)
         
@@ -17,19 +13,40 @@ app = Flask(__name__)
 def landingPage():
     return render_template('index.html')
 
-# get the user input
-@app.route('/choice', methods=['POST'])
-def choose():
-    if request.form['chosen']:
-        value = request.form['chosen'] # store the value
+# if the user click on get game -----------------------------------------------------------------
+# get the user input for game
+@app.route('/game', methods=['POST'])
+def choosegame():
+    if request.form['game']:
+        value = request.form['game'] # store the value
+    else:
+        value = '06' # default value
+
+    return redirect(url_for('resultgame', input = value))
+
+# show the game result
+@app.route('/resultgame/<input>')
+def resultgame(input):
+    data = requests.get('https://www.moogleapi.com/api/v1/games').json()
+    
+    for game in data:
+        if game['title'] == f'Final Fantasy {input}':
+            return game
+    
+# if the user click on get character ------------------------------------------------------------
+# get the user input for character
+@app.route('/character', methods=['POST'])
+def choosechar():
+    if request.form['character']:
+        value = request.form['character'] # store the value
     else:
         value = 'Mog' # return default value
 
-    return redirect(url_for('result', input = value))
+    return redirect(url_for('resultchar', input = value))
 
-# show the user results
-@app.route('/result/<input>')
-def result(input):
+# show the character results
+@app.route('/resultchar/<input>')
+def resultchar(input):
     charList = []
   
     data = requests.get(f'https://www.moogleapi.com/api/v1/characters/search?name={input}').json()
