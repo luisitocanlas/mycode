@@ -2,6 +2,7 @@
 
 # imports
 import requests
+import html
 from flask import Flask, redirect, url_for, request, render_template
 
 # represents the website
@@ -31,8 +32,13 @@ def resultgame(input):
     
     for game in data:
         if game['title'] == f'Final Fantasy {input}':
-            return game
+            # returning json
+            # return game
+            
+            # using jinja2
+            return render_template("game.html", game = game)
     
+
 # if the user click on get character ------------------------------------------------------------
 # get the user input for character
 @app.route('/character', methods=['POST'])
@@ -58,13 +64,17 @@ def resultchar(input):
         # put the desired data inside empty dictionary
         charDict['name'] = item['name']
         charDict['game'] = item['origin']
-        charDict['description'] = item['description']
+        charDict['description'] = html.unescape(item['description'])
+        charDict['picture'] = item['pictures'][0]['url']
 
         # add the each dictionary to the list
         charList.append(charDict)
 
     # print(charList)
-    return charList
+    # return charList
+
+    # using jinja2
+    return render_template("character.html", charlist = charList)
 
 
 if __name__ == "__main__":
