@@ -28,15 +28,20 @@ def choosegame():
 # show the game result
 @app.route('/resultgame/<input>')
 def resultgame(input):
-    data = requests.get('https://www.moogleapi.com/api/v1/games').json()
     
+    data = requests.get('https://www.moogleapi.com/api/v1/games').json()
+
+    # TODO find a better way to implement this
     for game in data:
         if game['title'] == f'Final Fantasy {input}':
             # returning json
-            # return game
-            
+            return game
+
             # using jinja2
-            return render_template("game.html", game = game)
+            # return render_template("game.html", game = game)
+
+        # else:
+        #     return redirect('/home')
     
 
 # if the user click on get character ------------------------------------------------------------
@@ -53,29 +58,33 @@ def choosechar():
 # show the character results
 @app.route('/resultchar/<input>')
 def resultchar(input):
-    charList = []
+    try:
+        charList = []
   
-    data = requests.get(f'https://www.moogleapi.com/api/v1/characters/search?name={input}').json()
+        data = requests.get(f'https://www.moogleapi.com/api/v1/characters/search?name={input}').json()
     
-    # loop through data
-    for item in data:
-        charDict = {}
+        # loop through data
+        for item in data:
+            charDict = {}
 
-        # put the desired data inside empty dictionary
-        charDict['name'] = item['name']
-        charDict['game'] = item['origin']
-        charDict['description'] = html.unescape(item['description'])
-        charDict['picture'] = item['pictures'][0]['url']
+            # put the desired data inside empty dictionary
+            charDict['name'] = item['name']
+            charDict['game'] = item['origin']
+            charDict['description'] = html.unescape(item['description'])
+            charDict['picture'] = item['pictures'][0]['url']
 
-        # add the each dictionary to the list
-        charList.append(charDict)
+            # add the each dictionary to the list
+            charList.append(charDict)
 
-    # print(charList)
-    # return charList
+        # print(charList)
+        # return charList
 
-    # using jinja2
-    return render_template("character.html", charlist = charList)
+        # using jinja2
+        return render_template("character.html", charlist = charList)
+
+    except:
+        return redirect('/home') # return to home if character doesn't exist
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=2224, debug=True)
+    app.run(host='0.0.0.0', port=2224, debug=False)
