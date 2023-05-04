@@ -8,13 +8,20 @@
 </head>
 <body>
     <section>
-        <h4>Input any Final Fantasy character:</h4>
+        <form action = "/game" method = "POST">
+            <p>Enter a Final Fantasy Game:</p>
+            <p>Input must be 01 ~ 15, excluding 11 and 14</p>
+            <p><input type = "text" name = "game"></p>
+            <p><input type = "submit" value = "Get the game!"></p>
+        </form>
     </section>
-
-    <form action = "/choice" method = "POST">
-        <p>Who will it be?</p>
-        <p><input type = "text" name = "chosen"></p>
-        <p><input type = "submit" value = "Let's go!"></p>
-    </form>
+    <h4>OR</h4>
+    <section>
+        <form action = "/character" method = "POST">
+            <p>Enter any Final Fantasy character:</p>
+            <p><input type = "text" name = "character"></p>
+            <p><input type = "submit" value = "Get the character!"></p>
+        </form>
+    </section>
 </body>
 </html>
