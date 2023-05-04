@@ -35,22 +35,21 @@ def success():
     return f"That is correct!"
 
 @app.route('/')
-@app.route('/start')
 def start():
     return html
 
 # added method, request.method, redirect, url_for
 @app.route('/login', methods = ['POST'])
 def login():
-    if request.method == "POST":
+    # if request.method == "POST":
         if request.form.get("nm"):
             answer = request.form.get("nm")
             if answer == "42":
                 return redirect(url_for("success"))
             else:
-                return redirect(url_for('start'))
+                return redirect('/')
         else:
-            return redirect(url_for('start'))
+            return redirect('/')
 
 # added host, port, debug
 if __name__ == "__main__":
