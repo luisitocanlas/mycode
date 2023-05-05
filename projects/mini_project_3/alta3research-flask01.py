@@ -53,16 +53,21 @@ def choosegame():
 # show the game result
 @app.route('/resultgame/<input>')
 def resultgame(input):
-    
-    # TODO find a better way to implement this
+    # create a list with all the titles, used for game error handling
+    titleList = []
     for game in gamedata:
-        if game['title'] == f'Final Fantasy {input}':
-            # returning list or json
-            # return game
+        titleList.append(game['title'])
 
-            # using jinja2
-            return render_template("game.html", game = game)
+    if f'Final Fantasy {input}' in titleList:   # error handling
+        for game in gamedata:
+            if game['title'] == f'Final Fantasy {input}':
+                ## returning list or json
+                # return game
 
+                ## using jinja2
+                return render_template("game.html", game = game)
+    else:
+        return redirect('/home') # return to home if game is not in the data
 
 # if the user click on get character ------------------------------------------------------------
 # get the user input for character
@@ -96,10 +101,10 @@ def resultchar(input):
             # add the each dictionary to the list
             charList.append(charDict)
 
-        # returning list or json
+        ## returning list or json
         # return charList
 
-        # using jinja2
+        ## using jinja2
         return render_template("character.html", charlist = charList)
 
     except:
