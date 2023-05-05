@@ -43,9 +43,9 @@ def lezdoit():
 # get the user input for game
 @app.route('/game', methods=['POST'])
 def choosegame():
-    # can change to request.form.get('game')
-    if request.form['game']:
-        value = request.form['game'] # store the value
+    # can change to request.form.get('game') / request.form['game']
+    if request.form.get('game'):
+        value = request.form.get('game') # store the value
     else:
         value = '06' # default value
 
