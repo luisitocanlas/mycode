@@ -21,9 +21,10 @@ def landingPage():
 # page for pure json ----------------------------------------------------------------------------
 @app.route('/lezdoit', methods = ['POST', 'GET'])
 def lezdoit():
+    # fires when a post request happens
     if request.method == 'POST':
         data = request.json
-        
+        # get the data and append
         if data:
            data= json.loads(data)
            title = data["title"]
@@ -32,7 +33,7 @@ def lezdoit():
            releaseDate = data["releaseDate"]
            description = data["description"]
            gamedata.append({"title":title,"picture":picture,"platform":platform,"releaseDate":releaseDate,"description":description})
-
+    # don't forget the jsonify and imports
     return jsonify(gamedata)
 
 
